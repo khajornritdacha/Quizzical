@@ -43,20 +43,33 @@ const QuizPage: React.FC<Props> = ({ setIsStarted }) => {
     getData();
   }, []);
 
+  const notAnswerAll = () => {
+    const cnt = data.reduce((sum, cur) => sum + (!!cur.choose ? 1 : 0), 0);
+    return cnt !== data.length;
+  };
+
   return (
     <div className="flex w-[80%] flex-col justify-start">
       <div className="align-center mt-2 flex flex-col justify-around">
         {data.map(
           (quiz, index) =>
             index !== -1 && (
-              <SingleQuiz key={index} quiz={quiz} setQuizzes={setData} />
+              <SingleQuiz
+                key={index}
+                quiz={quiz}
+                setQuizzes={setData}
+                isEnded={isEnded}
+              />
             )
         )}
       </div>
       {!isEnded ? (
         <button
-          className="mx-auto my-5 rounded-2xl bg-medium-violet py-4 px-8 text-xl text-white"
+          className={`mx-auto my-5 rounded-2xl py-4 px-8 text-xl text-white ${
+            notAnswerAll() ? 'bg-gray-400' : 'bg-medium-violet'
+          }`}
           onClick={() => setIsEnded(true)}
+          disabled={notAnswerAll()}
         >
           Check Answers
         </button>

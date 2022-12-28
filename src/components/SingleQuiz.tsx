@@ -4,9 +4,10 @@ import ChoiceButton from './ChoiceButton';
 interface Props {
   quiz: Quiz;
   setQuizzes: React.Dispatch<React.SetStateAction<Quiz[]>>;
+  isEnded: boolean;
 }
 
-const SingleQuiz: React.FC<Props> = ({ quiz, setQuizzes }) => {
+const SingleQuiz: React.FC<Props> = ({ quiz, setQuizzes, isEnded }) => {
   return (
     <div className="mt-8 text-dark-violet">
       <h1
@@ -21,6 +22,7 @@ const SingleQuiz: React.FC<Props> = ({ quiz, setQuizzes }) => {
               text={text}
               quiz={quiz}
               setQuizzes={setQuizzes}
+              isEnded={isEnded}
             />
           );
         })}
