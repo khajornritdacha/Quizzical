@@ -18,8 +18,6 @@ const QuizPage: React.FC<Props> = ({ setIsStarted }) => {
 
       if (response_code !== 0) throw new Error('API Error');
 
-      console.log(results);
-
       // Randomly generate choices
       const generateChoices = (
         incorrect_answers: string[],
@@ -63,15 +61,17 @@ const QuizPage: React.FC<Props> = ({ setIsStarted }) => {
           Check Answers
         </button>
       ) : (
-        <>
-          <h1>You scored x correct answers</h1>
+        <div className="flex justify-center align-middle">
+          <h1 className="mr-24 self-center text-2xl font-bold">
+            You scored x correct answers
+          </h1>
           <button
-            className="my-5 rounded-2xl bg-medium-violet py-4 px-8 text-xl text-white"
+            className="my-5 rounded-2xl bg-medium-violet py-3 px-12 text-xl text-white"
             onClick={() => setIsStarted(false)}
           >
             Play again
           </button>
-        </>
+        </div>
       )}
     </div>
   );
