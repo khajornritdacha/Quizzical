@@ -11,6 +11,7 @@ const QuizPage: React.FC<Props> = ({ setIsStarted }) => {
   const [data, setData] = useState<Quiz[]>([]);
   const [isEnded, setIsEnded] = useState(false);
   const [score, setScore] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const getData = async () => {
@@ -40,6 +41,7 @@ const QuizPage: React.FC<Props> = ({ setIsStarted }) => {
       }));
 
       setData(results);
+      setIsLoading(false);
     };
     getData();
   }, []);
@@ -50,45 +52,53 @@ const QuizPage: React.FC<Props> = ({ setIsStarted }) => {
   };
 
   return (
-    <div className="flex w-[80%] flex-col justify-start">
-      <div className="align-center mt-2 flex flex-col justify-around">
-        {data.map(
-          (quiz, index) =>
-            index !== -1 && (
-              <SingleQuiz
-                key={index}
-                quiz={quiz}
-                setQuizzes={setData}
-                isEnded={isEnded}
-                setScore={setScore}
-              />
-            )
-        )}
-      </div>
-      {!isEnded ? (
-        <button
-          className={`mx-auto my-5 rounded-2xl py-4 px-8 text-xl text-white ${
-            notAnswerAll() ? 'bg-gray-400' : 'bg-medium-violet'
-          }`}
-          onClick={() => setIsEnded(true)}
-          disabled={notAnswerAll()}
-        >
-          Check Answers
-        </button>
-      ) : (
-        <div className="flex justify-center align-middle">
-          <h1 className="mr-24 self-center text-2xl font-bold">
-            You scored {score} correct answers
-          </h1>
-          <button
-            className="my-5 rounded-2xl bg-medium-violet py-3 px-12 text-xl text-white"
-            onClick={() => setIsStarted(false)}
-          >
-            Play again
-          </button>
+    <>
+      {!isLoading ? (
+        <div className="flex w-[80%] flex-col justify-start">
+          <div className="align-center mt-2 flex flex-col justify-around">
+            {data.map(
+              (quiz, index) =>
+                index !== -1 && (
+                  <SingleQuiz
+                    key={index}
+                    quiz={quiz}
+                    setQuizzes={setData}
+                    isEnded={isEnded}
+                    setScore={setScore}
+                  />
+                )
+            )}
+          </div>
+          {!isEnded ? (
+            <button
+              className={`mx-auto my-5 rounded-2xl py-4 px-8 text-xl text-white ${
+                notAnswerAll() ? 'bg-gray-400' : 'bg-medium-violet'
+              }`}
+              onClick={() => setIsEnded(true)}
+              disabled={notAnswerAll()}
+            >
+              Check Answers
+            </button>
+          ) : (
+            <div className="flex justify-center align-middle">
+              <h1 className="mr-24 self-center text-2xl font-bold">
+                You scored {score} correct answers
+              </h1>
+              <button
+                className="my-5 rounded-2xl bg-medium-violet py-3 px-12 text-xl text-white"
+                onClick={() => setIsStarted(false)}
+              >
+                Play again
+              </button>
+            </div>
+          )}
         </div>
+      ) : (
+        <h1 className="self-center text-3xl font-bold tracking-widest">
+          Loading...
+        </h1>
       )}
-    </div>
+    </>
   );
 };
 
