@@ -82,7 +82,7 @@ const QuizPage: React.FC<Props> = ({ setIsStarted }) => {
           ) : (
             <div className="flex justify-center align-middle">
               <h1 className="mr-24 self-center text-2xl font-bold">
-                You scored {score} correct answers
+                You scored {score}/{data.length} correct answers
               </h1>
               <button
                 className="my-5 rounded-2xl bg-medium-violet py-3 px-12 text-xl text-white"
