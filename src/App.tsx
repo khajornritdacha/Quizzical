@@ -12,7 +12,7 @@ export default function App() {
           {!isStarted ? (
             <LandingPage setIsStarted={setIsStarted} />
           ) : (
-            <QuizPage />
+            <QuizPage setIsStarted={setIsStarted} />
           )}
         </div>
       </main>

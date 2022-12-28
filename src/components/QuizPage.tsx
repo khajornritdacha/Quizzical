@@ -3,8 +3,13 @@ import SingleQuiz from './SingleQuiz';
 import { Quiz } from '../models/model';
 import sanitizeHtml from 'sanitize-html';
 
-const QuizPage = () => {
+interface Props {
+  setIsStarted: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const QuizPage: React.FC<Props> = ({ setIsStarted }) => {
   const [data, setData] = useState<Quiz[]>([]);
+  const [isEnded, setIsEnded] = useState(false);
 
   useEffect(() => {
     const getData = async () => {
@@ -50,9 +55,24 @@ const QuizPage = () => {
             )
         )}
       </div>
-      <button className="mx-auto my-5 rounded-2xl bg-medium-violet py-4 px-8 text-xl text-white">
-        Check Answers
-      </button>
+      {!isEnded ? (
+        <button
+          className="mx-auto my-5 rounded-2xl bg-medium-violet py-4 px-8 text-xl text-white"
+          onClick={() => setIsEnded(true)}
+        >
+          Check Answers
+        </button>
+      ) : (
+        <>
+          <h1>You scored x correct answers</h1>
+          <button
+            className="my-5 rounded-2xl bg-medium-violet py-4 px-8 text-xl text-white"
+            onClick={() => setIsStarted(false)}
+          >
+            Play again
+          </button>
+        </>
+      )}
     </div>
   );
 };
