@@ -1,13 +1,25 @@
 import { Quiz } from '../models/model';
 import ChoiceButton from './ChoiceButton';
+import { useEffect } from 'react';
 
 interface Props {
   quiz: Quiz;
   setQuizzes: React.Dispatch<React.SetStateAction<Quiz[]>>;
   isEnded: boolean;
+  setScore: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const SingleQuiz: React.FC<Props> = ({ quiz, setQuizzes, isEnded }) => {
+const SingleQuiz: React.FC<Props> = ({
+  quiz,
+  setQuizzes,
+  isEnded,
+  setScore,
+}) => {
+  useEffect(() => {
+    const correct = +(quiz.choose === quiz.correct_answer);
+    setScore((prev) => prev + correct);
+  }, [isEnded]);
+
   return (
     <div className="mt-8 text-dark-violet">
       <h1
@@ -23,6 +35,7 @@ const SingleQuiz: React.FC<Props> = ({ quiz, setQuizzes, isEnded }) => {
               quiz={quiz}
               setQuizzes={setQuizzes}
               isEnded={isEnded}
+              setScore={setScore}
             />
           );
         })}

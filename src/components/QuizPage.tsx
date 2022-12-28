@@ -10,6 +10,7 @@ interface Props {
 const QuizPage: React.FC<Props> = ({ setIsStarted }) => {
   const [data, setData] = useState<Quiz[]>([]);
   const [isEnded, setIsEnded] = useState(false);
+  const [score, setScore] = useState(0);
 
   useEffect(() => {
     const getData = async () => {
@@ -44,7 +45,7 @@ const QuizPage: React.FC<Props> = ({ setIsStarted }) => {
   }, []);
 
   const notAnswerAll = () => {
-    const cnt = data.reduce((sum, cur) => sum + (!!cur.choose ? 1 : 0), 0);
+    const cnt = data.reduce((sum, cur) => sum + +!!cur.choose, 0);
     return cnt !== data.length;
   };
 
@@ -59,6 +60,7 @@ const QuizPage: React.FC<Props> = ({ setIsStarted }) => {
                 quiz={quiz}
                 setQuizzes={setData}
                 isEnded={isEnded}
+                setScore={setScore}
               />
             )
         )}
@@ -76,7 +78,7 @@ const QuizPage: React.FC<Props> = ({ setIsStarted }) => {
       ) : (
         <div className="flex justify-center align-middle">
           <h1 className="mr-24 self-center text-2xl font-bold">
-            You scored x correct answers
+            You scored {score} correct answers
           </h1>
           <button
             className="my-5 rounded-2xl bg-medium-violet py-3 px-12 text-xl text-white"

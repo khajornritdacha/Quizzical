@@ -3,21 +3,24 @@ import { Quiz } from '../models/model';
 interface Props {
   text: string;
   quiz: Quiz;
-  setQuizzes: React.Dispatch<React.SetStateAction<Quiz[]>>;
   isEnded: boolean;
+  setQuizzes: React.Dispatch<React.SetStateAction<Quiz[]>>;
+  setScore: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const ChoiceButton: React.FC<Props> = ({ text, quiz, setQuizzes, isEnded }) => {
+const ChoiceButton: React.FC<Props> = ({
+  text,
+  quiz,
+  isEnded,
+  setQuizzes,
+  setScore,
+}) => {
   const handleClick = () => {
     setQuizzes((prev) => {
       return prev.map((curQuiz) => {
-        if (curQuiz === quiz) {
-          console.log('Found');
-        }
         return curQuiz === quiz ? { ...curQuiz, choose: text } : curQuiz;
       });
     });
-    console.log(quiz);
   };
 
   let buttonStyle = 'border-dark-violet';
