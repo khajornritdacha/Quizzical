@@ -7,8 +7,8 @@ export default function App() {
 
   return (
     <>
-      <main className="before:bg-[url('./src/assets/blobsYellow.png') relative overflow-hidden before:absolute before:-z-10 before:h-[500px] before:w-[500px] before:bg-no-repeat before:content-['']">
-        <div className="flex h-screen justify-center bg-light-sky align-middle font-karla">
+      <main className="bg-light-sky">
+        <div className="flex min-h-screen justify-center  align-middle font-karla">
           {!isStarted ? (
             <LandingPage setIsStarted={setIsStarted} />
           ) : (

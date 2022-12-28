@@ -26,9 +26,12 @@ const QuizPage = () => {
         return choices;
       };
 
+      results.corect_answer = sanitizeHtml(results.correct_answer);
+      results.incorrect_answers = sanitizeHtml(results.correct_answer);
+      results.question = sanitizeHtml(results.question);
+
       results = results.map((item: Quiz) => ({
         ...item,
-        question: sanitizeHtml(item.question),
         choices: generateChoices(item.incorrect_answers, item.correct_answer),
       }));
 
@@ -38,8 +41,8 @@ const QuizPage = () => {
   }, []);
 
   return (
-    <div className="flex min-w-[70%] flex-col justify-start">
-      <div className="align-center flex flex-col justify-around">
+    <div className="flex w-[80%] flex-col justify-start">
+      <div className="align-center mt-2 flex flex-col justify-around">
         {data.map(
           (quiz, index) =>
             index !== -1 && (
@@ -47,7 +50,9 @@ const QuizPage = () => {
             )
         )}
       </div>
-      <button>Check Answers</button>
+      <button className="mx-auto my-5 rounded-2xl bg-medium-violet py-4 px-8 text-xl text-white">
+        Check Answers
+      </button>
     </div>
   );
 };

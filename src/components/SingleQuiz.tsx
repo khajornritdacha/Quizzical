@@ -8,8 +8,11 @@ interface Props {
 
 const SingleQuiz: React.FC<Props> = ({ quiz, setQuizzes }) => {
   return (
-    <div className="my-[4%]">
-      <h1>{quiz.question}</h1>
+    <div className="mt-8 text-dark-violet">
+      <h1
+        className="text-xl font-bold"
+        dangerouslySetInnerHTML={{ __html: quiz.question }}
+      />
       <div className="flex justify-around">
         {quiz.choices.map((text, index) => {
           return (
@@ -22,6 +25,7 @@ const SingleQuiz: React.FC<Props> = ({ quiz, setQuizzes }) => {
           );
         })}
       </div>
+      <hr className="mt-4 h-[2px] rounded border-0 bg-light-violet" />
     </div>
   );
 };

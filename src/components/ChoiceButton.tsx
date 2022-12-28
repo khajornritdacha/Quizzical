@@ -20,9 +20,15 @@ const ChoiceButton: React.FC<Props> = ({ text, quiz, setQuizzes }) => {
   };
 
   return (
-    <div className="cursor-pointer" onClick={handleClick}>
-      {text}
-    </div>
+    <div
+      className={`mt-4 cursor-pointer rounded-2xl border-2 px-7 py-2 font-medium ${
+        quiz.choose !== text
+          ? 'border-dark-violet'
+          : 'border-transparent bg-light-violet'
+      }`}
+      onClick={handleClick}
+      dangerouslySetInnerHTML={{ __html: text }}
+    />
   );
 };
 
